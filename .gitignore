@@ -11,7 +11,7 @@ dist/
 *.spec
 
 # Ignore local release artifacts
-release/
+releases/
 
 # Ignore Python cache
 __pycache__/
@@ -26,3 +26,4 @@ __pycache__/
 korechann_service.exe
 korechann_launcher_service.exe
 korechann.ico
+build_release.bat
