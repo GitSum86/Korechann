@@ -1,49 +1,46 @@
 @echo off
-echo === Korechann 3.2 Service Installer ===
+:: Korechann Service Installer
 
-:: Move to the batch file's own directory
-cd /d %~dp0
-
-:: Check if the launcher EXE exists
-if not exist korechann_launcher_service.exe (
-    echo Launcher EXE not found. Attempting to build using PyInstaller...
-
-    :: Check if pyinstaller is installed
-    where pyinstaller >nul 2>&1
-    if %errorlevel% neq 0 (
-        echo Error: PyInstaller is not installed. Please install it first:
-        echo pip install pyinstaller
-        pause
-        exit /b
-    )
-
-    :: Build the launcher EXE
-    pyinstaller --onefile korechann_launcher_service.py --name korechann_launcher_service --noconsole
-
-    :: Move the output EXE into the working folder
-    move /Y dist\korechann_launcher_service.exe . >nul
-    rmdir /s /q build
-    del korechann_launcher_service.spec
-    rmdir /s /q dist
-
-    echo Launcher EXE built successfully.
+:: Check if running as administrator
+openfiles >nul 2>&1
+if %errorlevel% neq 0 (
+    echo.
+    echo [ERROR] This installer must be run as Administrator.
+    echo.
+    pause
+    exit /b 1
 )
 
-:: Try to stop any existing service
-echo Attempting to stop any existing Korechann service...
-korechann_launcher_service.exe stop || echo No existing service to stop.
+echo === Korechann Service Installer ===
+cd /d "%~dp0"
 
-:: Try to remove any existing service
-echo Attempting to remove any existing Korechann service...
-korechann_launcher_service.exe remove || echo No existing service to remove.
+:: Service and worker settings
+set SERVICE_NAME=KorechannService
+set DISPLAY_NAME=Korechann Service
+set WORKER_EXE=%cd%\korechann_service.exe
 
-:: Install fresh service
-echo Installing Korechann Service...
-korechann_launcher_service.exe install
+:: Confirm worker exists
+if not exist "%WORKER_EXE%" (
+    echo [ERROR] korechann_service.exe not found in folder: %cd%
+    pause
+    exit /b 1
+)
 
-:: Start fresh service
-echo Starting Korechann Service...
-korechann_launcher_service.exe start
+echo [INFO] Installing service: %SERVICE_NAME%
+echo [INFO] Worker executable: %WORKER_EXE%
 
-echo === Installation Complete ===
+:: Install and configure service
+nssm.exe install %SERVICE_NAME% "%WORKER_EXE%"
+nssm.exe set %SERVICE_NAME% AppDirectory "%cd%"
+nssm.exe set %SERVICE_NAME% DisplayName "%DISPLAY_NAME%"
+nssm.exe set %SERVICE_NAME% Start SERVICE_AUTO_START
+nssm.exe set %SERVICE_NAME% AppRestartDelay 5000
+nssm.exe set %SERVICE_NAME% AppStdout "%cd%\korechann_service.log"
+nssm.exe set %SERVICE_NAME% AppStderr "%cd%\korechann_service_error.log"
+
+:: Start the service
+nssm.exe start %SERVICE_NAME%
+
+echo.
+echo [SUCCESS] Korechann Service installed and started successfully.
 pause

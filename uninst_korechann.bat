@@ -1,6 +1,16 @@
 @echo off
 echo === Korechann Service Uninstaller ===
 
+:: Check for admin rights
+openfiles >nul 2>&1
+if %errorlevel% neq 0 (
+    echo.
+    echo [ERROR] This uninstaller must be run as Administrator.
+    echo.
+    pause
+    exit /b 1
+)
+
 :: Move to the batch file's own directory
 cd /d %~dp0
 
