@@ -35,7 +35,7 @@ You can optionally auto-download the videos to a local NAS or storage location, 
 ### 1. Clone This Repository or Download a Release
 
 - bash
-- git clone https://github.com/yourusername/Korechann_Public.git
+- git clone https://github.com/yourusername/Korechann.git
 - cd Korechann_Public
 ## OR
 - Download the latest [release](https://github.com/GitSum86/Korechann/releases)
