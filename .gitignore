@@ -1,0 +1,28 @@
+# Ignore sensitive configs and runtime data
+config.yaml
+notified.json
+korechann_launcher.log
+korechann.log
+download/
+
+# Ignore build artifacts
+build/
+dist/
+*.spec
+
+# Ignore local release artifacts
+release/
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore IDE/editor settings
+.vscode/
+.idea/
+
+# Ignore executable binaries
+korechann_service.exe
+korechann_launcher_service.exe
+korechann.ico

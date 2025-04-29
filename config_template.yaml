@@ -1,0 +1,47 @@
+# Korechann Configuration - YAML
+
+    youtube_api_key: "GENERATE YOUR YOUTUBE API AND PLACE THE TOKEN HERE"
+    telegram_bot_token: "GENERATE YOUR TELEGRAM BOT'S TOKEN HERE"
+    telegram_chat_id: "YOUR TELEGRAM CHAT ID # - T_BOT WILL MESSAGE THIS"
+
+    fast_threshold: 100000  # Minimum views threshold for fast surge
+    slow_threshold: 1000000 # Minimum views threshold for slow surge
+
+    fast_hours: 48
+    slow_hours: 336
+
+    check_interval_minutes: 1440  # 24 hours
+    download_root_folder: ".\download"
+
+    preferred_format: "bestvideo[height<=1080]+bestaudio/best[height<=1080]/best" # default is 1080p, adjust as desired
+
+    title_keywords: # Video title must include one or more of these keywords to be a candidate
+      - mv
+      - m/v
+      - official performance
+      - official video
+      - choreography
+
+    exclude_title_keywords: # Video title must NOT include any of these keywords or it will be filtered
+      - teaser
+      - preview
+
+    official_channels: # You can use https://www.tunepocket.com/youtube-channel-id-finder/ to find these IDs
+      - UCEf_Bc-KVd7onSeifS3py9g  # SMTOWN
+      - UCJUxa5lgHUq09t8El3h12kw  # JYP Entertainment
+      - UCQi67q4kGdmnJaRzX81uK5g  # YG Entertainment
+      - UC3lz95UPhKJW1aS3_za6SuQ  # United CUBE
+      - UCYDmx2Sfpnaxg488yBpZIGg  # Starship Entertainment
+      - UC3IZKseVpdzPSBaWxBxundA  # HYBE LABELS
+    
+    artist_name_map: # Romanizes korean names
+      "르세라핌": "LE SSERAFIM"
+      "뉴진스": "NewJeans"
+      "아이브": "IVE"
+      "블랙핑크": "BLACKPINK"
+      "에스파": "aespa"
+      "레드벨벳": "Red Velvet"
+      "투애니원": "2NE1"
+      "카이": "KAI"
+      "지수": "JISOO"
+      "세븐틴": "SEVENTEEN"
