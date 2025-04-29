@@ -32,11 +32,13 @@ You can optionally auto-download the videos to a local NAS or storage location, 
 
 ## Setup Instructions
 
-### 1. Clone This Repository
+### 1. Clone This Repository or Download a Release
 
 - bash
 - git clone https://github.com/yourusername/Korechann_Public.git
 - cd Korechann_Public
+## OR
+- Download the latest [release](https://github.com/GitSum86/Korechann/releases)
 
 ### 2. Set Up YouTube Data API Access
 
