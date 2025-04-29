@@ -34,9 +34,9 @@ You can optionally auto-download the videos to a local NAS or storage location, 
 
 ### 1. Clone This Repository
 
-bash
-git clone https://github.com/yourusername/Korechann_Public.git
-cd Korechann_Public
+- bash
+- git clone https://github.com/yourusername/Korechann_Public.git
+- cd Korechann_Public
 
 ### 2. Set Up YouTube Data API Access
 
@@ -59,9 +59,9 @@ cd Korechann_Public
 
 - Copy "config_template.yaml" to be "config.yaml".
 - Edit config.yaml and fill in:
-	youtube_api_key: "YOUR_YOUTUBE_API_KEY"
-	telegram_bot_token: "YOUR_TELEGRAM_BOT_TOKEN"
-	telegram_chat_id: "YOUR_TELEGRAM_CHAT_ID"
+	- youtube_api_key: "YOUR_YOUTUBE_API_KEY"
+	- telegram_bot_token: "YOUR_TELEGRAM_BOT_TOKEN"
+	- telegram_chat_id: "YOUR_TELEGRAM_CHAT_ID"
 - Adjust thresholds, keywords, and channels as desired.
 
 ### 5. Install Dependencies
