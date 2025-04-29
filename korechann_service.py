@@ -24,10 +24,10 @@ with open('config.yaml', 'r', encoding='utf-8') as f:
 API_KEY = config["youtube_api_key"]
 BOT_TOKEN = config["telegram_bot_token"]
 CHAT_ID = config["telegram_bot_chat_id"] if "telegram_bot_chat_id" in config else config["telegram_chat_id"]
-FAST_THRESHOLD = config["fast_threshold"]       # now set to 100,000 in your YAML
+FAST_THRESHOLD = config["fast_threshold"]
 SLOW_THRESHOLD = config["slow_threshold"]
-FAST_HOURS = config.get("fast_hours", 48)
-SLOW_HOURS = config.get("slow_hours", 336)
+FAST_HOURS = config("fast_hours")
+SLOW_HOURS = config("slow_hours")
 CHECK_INTERVAL = config.get("check_interval_minutes", 1440)  # in minutes (default 1440 = 24 hours)
 DOWNLOAD_ROOT_FOLDER = config["download_root_folder"]
 PREFERRED_FORMAT = config.get("preferred_format", "bestvideo+bestaudio/best")

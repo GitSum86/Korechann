@@ -29,6 +29,10 @@ if not exist "%WORKER_EXE%" (
 echo [INFO] Installing service: %SERVICE_NAME%
 echo [INFO] Worker executable: %WORKER_EXE%
 
+:: Remove any old instances
+nssm.exe stop %SERVICE_NAME%
+nssm.exe remove %SERVICE_NAME% confirm
+
 :: Install and configure service
 nssm.exe install %SERVICE_NAME% "%WORKER_EXE%"
 nssm.exe set %SERVICE_NAME% AppDirectory "%cd%"
