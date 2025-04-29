@@ -218,24 +218,34 @@ def check_videos():
             
             if video['age_hours'] <= FAST_HOURS:
                 if view_count >= FAST_THRESHOLD and video['video_id'] not in notified["fast"]:
-                    message = f"🔥 Fast Surge! 🔥\n{decoded_title}\nViews: {view_count}\n{video_url}"
+                    base_msg = f"{video['title']}\nViews: {view_count}\n{video_url}"
+                    if video['is_excluded']:
+                        reason = f"Excluded from download due to keyword match: {', '.join([kw for kw in EXCLUDE_TITLE_KEYWORDS if kw in video['title'].lower()])}"
+                        message = f"🔥 Fast Surge! 🔥 (Excluded)\n{base_msg}\n\n{reason}"
+                        log_event(f"Excluded: {video['title']} | Reason: {reason}")
+                    else:
+                        message = f"🔥 Fast Surge! 🔥\n{base_msg}"
+                        download_video(video_url, video['channel_title'], video['title'])
+                        log_event(f"Fast Surge processed for video: {video['video_id']}")
                     print(f"Sending Telegram message:\n{message}\n")
                     send_telegram(message)
-                    if not video['is_excluded']:
-                        download_video(video_url, video['channel_title'], video['title'])
                     notified["fast"].append(video['video_id'])
-                    log_event(f"Fast Surge processed for video: {decoded_title} ({view_count} views)")
                 else: log_event(f"Video within fast window but below threshold: {decoded_title} | {view_count} views | {video_url}")
                     
             elif video['age_hours'] <= SLOW_HOURS:
                 if view_count >= SLOW_THRESHOLD and video['video_id'] not in notified["slow"]:
-                    message = f"⚡ Slow Surge! ⚡\n{decoded_title}\nViews: {view_count}\n{video_url}"
+                    base_msg = f"{video['title']}\nViews: {view_count}\n{video_url}"
+                    if video['is_excluded']:
+                        reason = f"Excluded from download due to keyword match: {', '.join([kw for kw in EXCLUDE_TITLE_KEYWORDS if kw in video['title'].tolower()])}"
+                        message = f"⚡ Slow Surge! ⚡ (Excluded)\n{base_msg}\n\n{reason}"
+                        log_event(f"Excluded: {decoded_title} | Reason: {reason}")
+                    else:
+                        message = f"⚡ Slow Surge! ⚡\n{base_msg}"
+                        download_video(video_url, video['channel_title'], video['title'])
+                        log_event(f"Slow Surge processed for video: {video['video_id']}")
                     print(f"Sending Telegram message:\n{message}\n")
                     send_telegram(message)
-                    if not video['is_excluded']:
-                        download_video(video_url, video['channel_title'], video['title'])
                     notified["slow"].append(video['video_id'])
-                    log_event(f"Slow Surge processed for video: {decoded_title} ({view_count} views)")
                 else: log_event(f"Video within slow window but below threshold: {decoded_title} | {view_count} views | {video_url}")
     with open('notified.json', 'w', encoding='utf-8') as f:
         json.dump(notified, f, indent=2)
